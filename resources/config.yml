@@ -1,0 +1,27 @@
+#   ██████╗ ██████╗  ██████╗ ██████╗ ██████╗ ██╗███╗   ██╗ █████╗ ████████╗███████╗███████╗
+#  ██╔════╝██╔═══██╗██╔═══██╗██╔══██╗██╔══██╗██║████╗  ██║██╔══██╗╚══██╔══╝██╔════╝██╔════╝
+#  ██║     ██║   ██║██║   ██║██████╔╝██║  ██║██║██╔██╗ ██║███████║   ██║   █████╗  ███████╗
+#  ██║     ██║   ██║██║   ██║██╔══██╗██║  ██║██║██║╚██╗██║██╔══██║   ██║   ██╔══╝  ╚════██║
+#  ╚██████╗╚██████╔╝╚██████╔╝██║  ██║██████╔╝██║██║ ╚████║██║  ██║   ██║   ███████╗███████║
+#   ╚═════╝ ╚═════╝  ╚═════╝ ╚═╝  ╚═╝╚═════╝ ╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝   ╚═╝   ╚══════╝╚══════╝
+# Welcome everyone to another customizable plugin, with this plugin you can show coordinates same like the client does in Vanilla Minecraft!
+# Here are some configurations you can do to the plugin:                                                                                        
+
+# Change the invalid argument message:
+
+invalid-arguments: "Invalid Arguments. Please type /coordinates (on/off)"
+
+# When a player enables coordinates, show them the message:
+
+turned-on: "Coordinates turned on."
+
+# When a player enables coordinates, show them the message:
+
+turned-off: "Coordinates turned off."
+
+# You can also make more command to exceute coordinates:
+# Defualt is /coordinates and cannot be changed.
+
+aliases:
+  - "coords"
+  - "showcoordinates"

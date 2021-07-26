@@ -33,14 +33,14 @@ class CoordinateCommand extends PluginCommand{
 
                   case "on":
                    $pk = new GameRulesChangedPacket();
-                   $pk->gameRules = ["showcoordinates" => [1, true]];
+                   $pk->gameRules = ["showcoordinates" => [1, true, true]];
                    $sender->dataPacket($pk);
                    $sender->sendMessage($this->plugin->config->get("turned-on"));
                      break;
 
                   case "off":
                    $pk = new GameRulesChangedPacket();
-                   $pk->gameRules = ["showcoordinates" => [1, false]];
+                   $pk->gameRules = ["showcoordinates" => [1, false, false]];
                    $sender->dataPacket($pk);
                    $sender->sendMessage($this->plugin->config->get("turned-off"));
 

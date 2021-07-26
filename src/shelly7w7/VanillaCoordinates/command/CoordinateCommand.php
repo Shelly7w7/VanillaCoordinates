@@ -22,7 +22,10 @@ class CoordinateCommand extends PluginCommand{
     }
 
     public function execute(CommandSender $sender, string $commandLabel, array $args) {
-
+                if (!$sender instanceof Player) {
+                    $sender->sendMessage("console only");
+                    return;
+                }
                if (count($args) < 1) {
                 $sender->sendMessage($this->plugin->config->get("invalid-arguments"));
                  return true;

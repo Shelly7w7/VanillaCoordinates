@@ -1,50 +1,53 @@
 <?php
+declare(strict_types=1);
 
 namespace shelly7w7\VanillaCoordinates\command;
 
+use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
-use pocketmine\command\PluginCommand;
-use pocketmine\Player;
-use pocketmine\utils\Config;
 use pocketmine\network\mcpe\protocol\GameRulesChangedPacket;
-use pocketmine\Server;
+use pocketmine\network\mcpe\protocol\types\BoolGameRule;
+use pocketmine\player\Player;
+use pocketmine\utils\TextFormat;
 use shelly7w7\vanillacoordinates\Loader;
 
+class CoordinateCommand extends Command {
 
-class CoordinateCommand extends PluginCommand{
+	public function __construct() {
+		parent::__construct("coordinates", "Toggle on/off coordinates.", "/coordinates", ["coords"]);
+	}
 
-    public function __construct($name, Loader $plugin)
-    {
-        parent::__construct($name, $plugin);
-        $this->plugin = $plugin;        
-        $this->setAliases($this->plugin->config->get("aliases"));
-        $this->setDescription("Show coordinates");
-    }
+	public function execute(CommandSender $sender, string $commandLabel, array $args): void {
 
-    public function execute(CommandSender $sender, string $commandLabel, array $args) {
+		if(!$sender instanceof Player) {
+			$sender->sendMessage("Use this command in-game only.");
+			return;
+		}
 
-               if (count($args) < 1) {
-                $sender->sendMessage($this->plugin->config->get("invalid-arguments"));
-                 return true;
-                 }
+		if(count($args) < 1) {
+			$sender->sendMessage(TextFormat::RED . "Invalid Arguments, please use /coordinates [on/off]");
+			return;
+		}
 
-                if (isset($args[0])) {
-                 switch ($args[0]) {
+		switch($args[0]) {
+			case "on":
+				$pk = new GameRulesChangedPacket();
+				$pk->gameRules = ["showcoordinates" => new BoolGameRule(true, false)];
+				$sender->getNetworkSession()->sendDataPacket($pk);
+				$sender->sendMessage(Loader::getInstance()->getConfig()->get("turned-on"));
+				break;
 
-                  case "on":
-                   $pk = new GameRulesChangedPacket();
-                   $pk->gameRules = ["showcoordinates" => [1, true]];
-                   $sender->dataPacket($pk);
-                   $sender->sendMessage($this->plugin->config->get("turned-on"));
-                     break;
+			case "off":
+				$pk = new GameRulesChangedPacket();
+				$pk->gameRules = ["showcoordinates" => new BoolGameRule(false, false)];
+				$sender->getNetworkSession()->sendDataPacket($pk);
+				$sender->sendMessage(Loader::getInstance()->getConfig()->get("turned-off"));
+				break;
 
-                  case "off":
-                   $pk = new GameRulesChangedPacket();
-                   $pk->gameRules = ["showcoordinates" => [1, false]];
-                   $sender->dataPacket($pk);
-                   $sender->sendMessage($this->plugin->config->get("turned-off"));
+			default:
+				$sender->sendMessage(TextFormat::RED . "Invalid Arguments, please use /coordinates [on/off]");
 
-                 }
-            }
-      }
+				return;
+		}
+	}
 }

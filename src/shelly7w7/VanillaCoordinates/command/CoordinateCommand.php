@@ -10,7 +10,7 @@ use pocketmine\network\mcpe\protocol\types\BoolGameRule;
 use pocketmine\permission\DefaultPermissionNames;
 use pocketmine\player\Player;
 use pocketmine\utils\TextFormat;
-use shelly7w7\vanillacoordinates\Loader;
+use shelly7w7\VanillaCoordinates\Loader;
 
 class CoordinateCommand extends Command {
 

@@ -32,14 +32,12 @@ class CoordinateCommand extends Command {
 
 		switch($args[0]) {
 			case "on":
-				$pk = new GameRulesChangedPacket();
-				$pk->gameRules = ["showcoordinates" => new BoolGameRule(true, false)];
+				$pk = GameRulesChangedPacket::create(["showcoordinates" => new BoolGameRule(true, false)]);
 				$sender->getNetworkSession()->sendDataPacket($pk);
 				$sender->sendMessage(Loader::getInstance()->getConfig()->get("turned-on"));
 				break;
 			case "off":
-				$pk = new GameRulesChangedPacket();
-				$pk->gameRules = ["showcoordinates" => new BoolGameRule(false, false)];
+				$pk = GameRulesChangedPacket::create(["showcoordinates" => new BoolGameRule(false, false)]);
 				$sender->getNetworkSession()->sendDataPacket($pk);
 				$sender->sendMessage(Loader::getInstance()->getConfig()->get("turned-off"));
 				break;
